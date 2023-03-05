@@ -11,4 +11,4 @@ go to hostingextension and " uncomment if you want to add a UI"
 
 
 Add test user to project
-- replace the test user with out own users
+replace the test user with out own users
