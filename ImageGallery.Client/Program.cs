@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews()
-    .AddJsonOptions(configure => 
+    .AddJsonOptions(configure =>
         configure.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -26,7 +26,7 @@ builder.Services.AddHttpClient("APIClient", client =>
 
 builder.Services.AddHttpClient("IDPClient", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:5001/");
+    client.BaseAddress = new Uri("https://localhost:44300/");
 });
 
 builder.Services.AddAuthentication(options =>
@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(options =>
 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
 {
     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.Authority = "https://localhost:5001/";
+    options.Authority = "https://localhost:44300/";
     options.ClientId = "imagegalleryclient";
     options.ClientSecret = "secret";
     options.ResponseType = "code";
@@ -66,11 +66,11 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("offline_access");
     options.ClaimActions.MapJsonKey("role", "role");
     options.ClaimActions.MapUniqueJsonKey("country", "country");
-    options.TokenValidationParameters = new ()
+    options.TokenValidationParameters = new()
     {
         NameClaimType = "given_name",
         RoleClaimType = "role",
-    }; 
+    };
 });
 
 builder.Services.AddAuthorization(authorizationOptions =>
