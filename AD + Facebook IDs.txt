@@ -1,0 +1,12 @@
+AD
+Tanent Id = 0ed57cfc-71e2-4092-8dec-4b6def788843
+Clinet Id = 76758ef2-b97d-44a0-be7a-14faccc7b0b4
+Object Id = 52f7844c-7796-4c42-8740-ce62ae6f0794
+Secret Id = 2Yp8Q~iCzd8kMoAnOkxczQuMc6yGOQ6YP4~O8dvp
+
+Issuer link
+https://login.microsoftonline.com/0ed57cfc-71e2-4092-8dec-4b6def788843/v2.0
+
+
+Facebook
+developer.facebook/apps

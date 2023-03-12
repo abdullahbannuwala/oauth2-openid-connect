@@ -60,7 +60,7 @@ internal static class HostingExtensions
                  options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                  options.Authority = "https://login.microsoftonline.com/0ed57cfc-71e2-4092-8dec-4b6def788843/v2.0";
                  options.ClientId = "76758ef2-b97d-44a0-be7a-14faccc7b0b4";
-                 options.ClientSecret = "MB78Q~42xYW~-38XKIkCg3dMDMwoHYnt8XCE8dq5";
+                 options.ClientSecret = "2Yp8Q~iCzd8kMoAnOkxczQuMc6yGOQ6YP4~O8dvp";
                  options.ResponseType = "code";
                  options.CallbackPath = new PathString("/signin-aad/");
                  options.SignedOutCallbackPath = new PathString("/signout-aad/");
@@ -77,9 +77,6 @@ internal static class HostingExtensions
                    options.AppId = "864396097871039";
                    options.AppSecret = "11015f9e340b0990b0e50f39dd8a4e9a";
                });
-
-
-
 
         return builder.Build();
     }

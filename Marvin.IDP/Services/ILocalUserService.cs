@@ -1,9 +1,24 @@
 ﻿using Marvin.IDP.Entities;
+using System.Security.Claims;
 
 namespace Marvin.IDP.Services
 {
     public interface ILocalUserService
     {
+        Task<User> GetUserByEmailAsync(string email);
+        Task AddExternalProviderToUser(
+                   string subject,
+                   string provider,
+                   string providerIdentityKey);
+
+        Task<User> FindUserByExternalProviderAsync(
+            string provider, 
+            string providerIdentityKey);
+
+        public User AutoProvisionUser(string provider,
+           string providerIdentityKey,
+           IEnumerable<Claim> claims);
+
         Task<bool> ValidateCredentialsAsync(
              string userName,
              string password);
