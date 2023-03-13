@@ -29,7 +29,7 @@ internal static class HostingExtensions
         // uncomment if you want to add a UI
         builder.Services.AddRazorPages();
 
-        builder.Services.AddScoped<IPasswordHasher<Entities.User>,
+        builder.Services.AddScoped<IPasswordHasher<Entities.User>, 
             PasswordHasher<Entities.User>>();
 
         builder.Services.AddScoped<ILocalUserService, LocalUserService>();
@@ -53,21 +53,21 @@ internal static class HostingExtensions
             .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryClients(Config.Clients);
 
-        builder.Services
-             .AddAuthentication()
-             .AddOpenIdConnect("AAD", "Azure Active Directory", options =>
-             {
-                 options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                 options.Authority = "https://login.microsoftonline.com/0ed57cfc-71e2-4092-8dec-4b6def788843/v2.0";
-                 options.ClientId = "76758ef2-b97d-44a0-be7a-14faccc7b0b4";
-                 options.ClientSecret = "2Yp8Q~iCzd8kMoAnOkxczQuMc6yGOQ6YP4~O8dvp";
-                 options.ResponseType = "code";
-                 options.CallbackPath = new PathString("/signin-aad/");
-                 options.SignedOutCallbackPath = new PathString("/signout-aad/");
-                 options.Scope.Add("email");
-                 options.Scope.Add("offline_access");
-                 options.SaveTokens = true;
-             });
+       builder.Services
+            .AddAuthentication()
+            .AddOpenIdConnect("AAD", "Azure Active Directory", options =>
+            {
+                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                options.Authority = "https://login.microsoftonline.com/621cb4b2-eeb8-4699-913d-a651c392babd/v2.0";
+                options.ClientId = "df55658d-e228-4f72-9f11-b60334edb0e2";
+                options.ClientSecret = "Tkt8Q~gJ9yez1EGA6BqFJfCVWIzM_B.bCAUx8bkB";
+                options.ResponseType = "code";
+                options.CallbackPath = new PathString("/signin-aad/");
+                options.SignedOutCallbackPath = new PathString("/signout-aad/");
+                options.Scope.Add("email");
+                options.Scope.Add("offline_access");
+                options.SaveTokens = true;
+            });
 
         builder.Services.AddAuthentication()
             .AddFacebook("Facebook",
@@ -76,15 +76,15 @@ internal static class HostingExtensions
                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                    options.AppId = "864396097871039";
                    options.AppSecret = "11015f9e340b0990b0e50f39dd8a4e9a";
-               });
+               }); 
 
         return builder.Build();
     }
-
+    
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    {
+    { 
         app.UseSerilogRequestLogging();
-
+    
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
