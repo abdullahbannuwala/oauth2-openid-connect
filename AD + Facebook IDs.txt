@@ -10,3 +10,7 @@ https://login.microsoftonline.com/0ed57cfc-71e2-4092-8dec-4b6def788843/v2.0
 
 Facebook
 developer.facebook/apps
+github.com/DuendeSoftware/IdentityServer.Quickstart.UI.AspNetIdentity/tree/6.1.0
+
+
+D:\Learnings\.NET Core\OAuth2_OpenID_Connect\Practice\Marvin.IDP\bin\Debug\net6.0>marvin.idp/seed
