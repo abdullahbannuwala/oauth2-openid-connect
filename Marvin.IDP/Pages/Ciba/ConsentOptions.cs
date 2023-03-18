@@ -2,7 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
-namespace IdentityServerHost.Pages.Ciba;
+namespace Marvin.IDP.Pages.Ciba;
 
 public class ConsentOptions
 {

@@ -14,3 +14,64 @@ github.com/DuendeSoftware/IdentityServer.Quickstart.UI.AspNetIdentity/tree/6.1.0
 
 
 D:\Learnings\.NET Core\OAuth2_OpenID_Connect\Practice\Marvin.IDP\bin\Debug\net6.0>marvin.idp/seed
+
+
+Server
+user001 / _Khang125
+
+Run specific context
+add-migration name -Context NameDbContext
+Update-Database -Context NameDbContext
+
+
+Configurational Data = like identity resources, api scopes, api resources, clients
+
+ConfigurationDbContext
+
+Server=tcp:imagegalleryapplication.database.windows.net,1433;Initial Catalog=IdentityServerDb;Persist Security Info=False;User ID=user001;Password=_Khang125;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+add-migration -name InitialIdentityServerConfigurationDataMigration -context ConfigurationDbContext
+Update-Database -context ConfigurationDbContext
+
+
+If you need UI for configuration data check the below code
+https://github.com/skoruba/Duende.IdentityServer.Admin
+
+Operational Data =  like access token , refresh token, session 
+
+PersistedGrantDbContext
+
+You can use same database for operational data but you can create new one as well . we will use the above database 
+
+add-migration -name InitialIdentityServerOperationalDataMigration -context PersistedGrantDbContext
+Update-Database -context PersistedGrantDbContext
+
+
+User database
+IdentityDbContext
+
+Server=tcp:imagegalleryapplication.database.windows.net,1433;Initial Catalog=PluralsightDemoUserDB;Persist Security Info=False;User ID=user001;Password=_Khang125;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+add-migration -name InitialUserDataMigration -context IdentityDbContext
+Update-Database -context IdentityDbContext
+
+Data Protection 
+Azure Blob + KeyVault
+
+Data Protection
+https://abdullahstorageaccount.blob.core.windows.net/pluralsightdemocontainer
+https://abdullahstorageaccount.blob.core.windows.net/pluralsightdemocontainer/dataprotectionkeys
+
+
+key valut
+https://abdullahkeyvault.vault.azure.net/keys/DataProtectionProtectionKey/47a799e83ee2459e9e3b24c29e7a573b
+
+
+
+
+Key Vault 
+https://abdullahkeyvault.vault.azure.net/certificates/PluralSightDemoSigningCertificate/a562cff5c9ef4c4f9da81aec774cca30
+
+RootUri = https://abdullahkeyvault.vault.azure.net/
+CertificateName = PluralSightDemoSigningCertificate/a562cff5c9ef4c4f9da81aec774cca30
+

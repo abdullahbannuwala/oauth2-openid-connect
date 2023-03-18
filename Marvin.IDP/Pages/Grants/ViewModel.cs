@@ -1,4 +1,4 @@
-namespace IdentityServerHost.Pages.Grants;
+namespace Marvin.IDP.Pages.Grants;
 
 public class ViewModel
 {

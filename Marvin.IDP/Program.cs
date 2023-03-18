@@ -1,11 +1,11 @@
-using Marvin.IDP;
-using Serilog; 
+﻿using Marvin.IDP;
+using Serilog;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
-Log.Information("Starting up"); 
+Log.Information("Starting up");
 
 try
 {
@@ -20,17 +20,14 @@ try
         .ConfigureServices()
         .ConfigurePipeline();
 
-    if (args.Contains("/seed"))
-    {
-        Log.Information("Seeding database...");
-        SeedData.EnsureSeedData(app);
-        Log.Information("Done seeding database. Exiting.");
-        return;
-    }
+    // seed the configuration database
+    SeedData.EnsureSeedData(app);
+
 
     app.Run();
 }
-catch (Exception ex)
+// https://github.com/dotnet/runtime/issues/60600
+catch (Exception ex) when (ex.GetType().Name is not "StopTheHostException") 
 {
     Log.Fatal(ex, "Unhandled exception");
 }
@@ -38,4 +35,4 @@ finally
 {
     Log.Information("Shut down complete");
     Log.CloseAndFlush();
-} 
+}

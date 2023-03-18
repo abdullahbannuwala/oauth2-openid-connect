@@ -1,90 +1,80 @@
-﻿using System.Security.Claims;
-using IdentityModel; 
-using Microsoft.AspNetCore.Identity;
+﻿using Duende.IdentityServer.EntityFramework.DbContexts;
+using Duende.IdentityServer.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Marvin.IDP.Data;
-using Marvin.IDP.Areas.Identity.Data;
 
-namespace Marvin.IDP;
-
-public class SeedData
+namespace Marvin.IDP
 {
-    public static void EnsureSeedData(WebApplication app)
+    public class SeedData
     {
-        using (var scope = app.Services
-            .GetRequiredService<IServiceScopeFactory>().CreateScope())
+        public static void EnsureSeedData(WebApplication app)
         {
-            var context = scope.ServiceProvider.GetService<MarvinIDPContext>();
-            context.Database.Migrate();
-
-            var userMgr = scope.ServiceProvider
-                .GetRequiredService<UserManager<ApplicationUser>>();
-            var emma = userMgr.FindByNameAsync("Emma").Result;
-            if (emma == null)
+            using (var scope = app.Services
+                .GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                emma = new ApplicationUser
-                {
-                    UserName = "Emma",
-                    Email = "emma@someprovider.com",
-                    EmailConfirmed = true,
-                };
-                var result = userMgr.CreateAsync(emma, "P@ssword1").Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
+                var context = scope.ServiceProvider
+                    .GetService<ConfigurationDbContext>();
+                EnsureSeedData(context);
+            }
+        }
 
-                result = userMgr.AddClaimsAsync(emma, new Claim[]{
-                        new Claim("role", "PayingUser"),
-                        new Claim(JwtClaimTypes.GivenName, "Emma"),
-                        new Claim(JwtClaimTypes.FamilyName, "Flagg"),
-                        new Claim(JwtClaimTypes.Email, "emma@someprovider.com"),
-                        new Claim("country", "be"),
-                        }).Result;
-                
-                if (!result.Succeeded)
+
+        private static void EnsureSeedData(ConfigurationDbContext context)
+        {
+            if (!context.Clients.Any())
+            {
+                Log.Debug("Clients being populated");
+                foreach (var client in Config.Clients.ToList())
                 {
-                    throw new Exception(result.Errors.First().Description);
+                    context.Clients.Add(client.ToEntity());
                 }
-                Log.Debug("Emma created");
+                context.SaveChanges();
             }
             else
             {
-                Log.Debug("Emma already exists");
+                Log.Debug("Clients already populated");
             }
 
-            var david = userMgr.FindByNameAsync("David").Result;
-            if (david == null)
+            if (!context.IdentityResources.Any())
             {
-                david = new ApplicationUser
+                Log.Debug("IdentityResources being populated");
+                foreach (var resource in Config.IdentityResources.ToList())
                 {
-                    UserName = "David",
-                    Email = "david@someprovider.com",
-                    EmailConfirmed = true
-                };
-                var result = userMgr.CreateAsync(david, "P@ssword1").Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
+                    context.IdentityResources.Add(resource.ToEntity());
                 }
-
-                result = userMgr.AddClaimsAsync(david, new Claim[]{
-                            new Claim("role", "FreeUser"),
-                            new Claim(JwtClaimTypes.GivenName, "David"),
-                            new Claim(JwtClaimTypes.FamilyName, "Flagg"),
-                            new Claim(JwtClaimTypes.Email, "david@someprovider.com"),
-                            new Claim("country", "nl")
-                        }).Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-                Log.Debug("David created");
+                context.SaveChanges();
             }
             else
             {
-                Log.Debug("David already exists");
+                Log.Debug("IdentityResources already populated");
+            }
+
+            if (!context.ApiScopes.Any())
+            {
+                Log.Debug("ApiScopes being populated");
+                foreach (var resource in Config.ApiScopes.ToList())
+                {
+                    context.ApiScopes.Add(resource.ToEntity());
+                }
+                context.SaveChanges();
+            }
+            else
+            {
+                Log.Debug("ApiScopes already populated");
+            }
+
+            if (!context.ApiResources.Any())
+            {
+                Log.Debug("ApiResources being populated");
+                foreach (var resource in Config.ApiResources.ToList())
+                {
+                    context.ApiResources.Add(resource.ToEntity());
+                }
+                context.SaveChanges();
+            }
+            else
+            {
+                Log.Debug("ApiResources already populated");
             }
         }
     }

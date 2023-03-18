@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IdentityServerHost.Pages.Ciba;
+namespace Marvin.IDP.Pages.Ciba;
 
 [Authorize]
 [SecurityHeadersAttribute]

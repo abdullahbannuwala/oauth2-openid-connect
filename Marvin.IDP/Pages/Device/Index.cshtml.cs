@@ -4,13 +4,13 @@ using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
-using IdentityServerHost.Pages.Consent;
+using Marvin.IDP.Pages.Consent;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 
-namespace IdentityServerHost.Pages.Device;
+namespace Marvin.IDP.Pages.Device;
 
 [SecurityHeaders]
 [Authorize]

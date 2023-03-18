@@ -1,4 +1,4 @@
-namespace IdentityServerHost.Pages.Device;
+namespace Marvin.IDP.Pages.Device;
 
 public class ViewModel
 {
